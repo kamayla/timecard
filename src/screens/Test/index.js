@@ -1,50 +1,26 @@
-import React, {useState, useEffect} from 'react';
-import {connect} from 'react-redux';
+import React, {useState} from 'react';
 import {
   View,
   Text,
   SafeAreaView,
   StyleSheet,
-  TextInput,
   TouchableOpacity,
 } from 'react-native';
 
-import {login} from '../../actions/auth';
+import {logout} from '../../actions/auth';
+import {connect} from 'react-redux';
+import AuthenPageWrapper from '../../components/AuthenPageWrapper';
 
-const Login = ({navigation, auth, login}) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const Login = ({destroyToken, auth}) => {
+  const [title, setTitle] = useState('test');
 
   return (
     <SafeAreaView style={LoginPageStyles.safeContainer}>
       <View style={[LoginPageStyles.loginPageWrapper]}>
-        <View style={LoginPageStyles.titleWrapper}>
-          <Text style={LoginPageStyles.loginTitle}>Login{auth.jwt}</Text>
-        </View>
-        <View style={LoginPageStyles.inputWrapper}>
-          <TextInput
-            style={LoginPageStyles.inputStyle}
-            keyboardType="email-address"
-            value={email}
-            onChangeText={(text) => setEmail(text)}
-            placeholder="ログインID"
-          />
-        </View>
-        <View style={LoginPageStyles.inputWrapper}>
-          <TextInput
-            style={LoginPageStyles.inputStyle}
-            value={password}
-            onChangeText={(text) => setPassword(text)}
-            placeholder="パスワード"
-          />
-        </View>
-        <View style={LoginPageStyles.loginButtonWrapper}>
-          <TouchableOpacity
-            style={LoginPageStyles.loginButton}
-            onPress={() => login(email, password)}>
-            <Text style={LoginPageStyles.loginButtonText}>ログイン</Text>
-          </TouchableOpacity>
-        </View>
+        <TouchableOpacity onPress={() => destroyToken()}>
+          <Text>Testset</Text>
+        </TouchableOpacity>
+        <Text>{auth.jwt}</Text>
       </View>
     </SafeAreaView>
   );
@@ -110,13 +86,14 @@ const mapStateToProps = (state) => {
     auth: state.auth,
   };
 };
-
 const mapDispatchToProps = (dispatch) => {
   return {
-    login: (email, password) => {
-      dispatch(login(email, password));
+    destroyToken: () => {
+      dispatch(logout());
     },
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(Login);
+export default AuthenPageWrapper(
+  connect(mapStateToProps, mapDispatchToProps)(Login),
+);
