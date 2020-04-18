@@ -1,6 +1,8 @@
 import React from 'react';
 import {connect} from 'react-redux';
-import {refreshJwtToken} from '../../actions/auth';
+import {refreshJwtToken, logout, getMyAllAttendances} from '../../actions/auth';
+import {getCurrentUser, goingWork} from '../../api/auth';
+import Geolocation from '@react-native-community/geolocation';
 
 const AuthenPageWrapper = (WrapperedComponent) => {
   const Component = () =>
@@ -9,13 +11,20 @@ const AuthenPageWrapper = (WrapperedComponent) => {
         super(props);
       }
 
-      // componentDidMount() {
-      //   const {navigation} = this.props;
-      //   this.unsubscribe = navigation.addListener('focus', () => {
-      //     const {jwt} = this.props;
-      //     this.props.userRefreshToken(jwt);
-      //   });
-      // }
+      componentDidMount() {
+        const {navigation} = this.props;
+        this.unsubscribe = navigation.addListener('focus', () => {
+          console.log(this.props.jwt);
+          getCurrentUser(this.props.jwt)
+            .then((res) => {
+              this.props.getMyAttendances(this.props.jwt);
+              console.log(res.data);
+            })
+            .catch((e) => {
+              e.response.status === 401 && this.props.logout();
+            });
+        });
+      }
 
       render() {
         return <WrapperedComponent {...this.props} />;
@@ -27,6 +36,7 @@ const AuthenPageWrapper = (WrapperedComponent) => {
 const mapStateToProps = (state) => {
   return {
     jwt: state.auth.jwt,
+    attendances: state.auth.attendances,
   };
 };
 
@@ -34,6 +44,12 @@ const mapDispatchToProps = (dispatch) => {
   return {
     userRefreshToken: (jwt) => {
       dispatch(refreshJwtToken(jwt));
+    },
+    logout: () => {
+      dispatch(logout());
+    },
+    getMyAttendances: (jwt) => {
+      dispatch(getMyAllAttendances(jwt));
     },
   };
 };

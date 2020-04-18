@@ -1,5 +1,6 @@
 const initialState = {
   jwt: null,
+  attendances: [],
 };
 
 const auth = (state = initialState, action) => {
@@ -8,6 +9,11 @@ const auth = (state = initialState, action) => {
       return {
         ...state,
         jwt: action.payload.jwt,
+      };
+    case 'SET_MY_ATTENDANCES':
+      return {
+        ...state,
+        attendances: action.payload.attendances,
       };
     case 'DESTOROY_TOKEN':
       return {

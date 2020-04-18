@@ -80,6 +80,8 @@ target 'timecard' do
 
   pod 'react-native-config', :path => '../node_modules/react-native-config'
 
+  pod 'react-native-geolocation', :path => '../node_modules/@react-native-community/geolocation'
+
   target 'timecardTests' do
     inherit! :complete
     # Pods for testing

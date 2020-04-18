@@ -8,6 +8,39 @@ export const getCurrentUser = (jwt) => {
     },
   });
 };
+export const getMyAttendances = (jwt) => {
+  return axios.get(`${Config.API_ROOT}/user/users/my-attendances`, {
+    headers: {
+      Authorization: `Bearer ${jwt}`,
+    },
+  });
+};
+export const goingWork = (jwt, coords) => {
+  return axios.put(
+    `${Config.API_ROOT}/user/users/going-work`,
+    {
+      coords,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    },
+  );
+};
+export const leavingWork = (jwt, coords) => {
+  return axios.put(
+    `${Config.API_ROOT}/user/users/leaving-work`,
+    {
+      coords,
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${jwt}`,
+      },
+    },
+  );
+};
 
 export const userLogin = (payload) => {
   const {email, password} = payload;
