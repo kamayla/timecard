@@ -47,7 +47,7 @@ const AttendancesListStyles = StyleSheet.create({
     padding: 6,
   },
   dateTimeTextWrapper: {
-    flex: 1,
+    flex: 1.5,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',

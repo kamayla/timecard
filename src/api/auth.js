@@ -28,6 +28,7 @@ export const goingWork = (jwt, coords) => {
     },
   );
 };
+
 export const leavingWork = (jwt, coords) => {
   return axios.put(
     `${Config.API_ROOT}/user/users/leaving-work`,
