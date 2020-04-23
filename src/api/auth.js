@@ -15,6 +15,15 @@ export const getMyAttendances = (jwt) => {
     },
   });
 };
+
+export const getMyRosters = (jwt, diffMonth = 0) => {
+  return axios.get(`${Config.API_ROOT}/user/users/my-rosters/${diffMonth}`, {
+    headers: {
+      Authorization: `Bearer ${jwt}`,
+    },
+  });
+};
+
 export const goingWork = (jwt, coords) => {
   return axios.put(
     `${Config.API_ROOT}/user/users/going-work`,

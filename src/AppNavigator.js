@@ -7,7 +7,7 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
 import Login from './screens/Login';
 import Top from './screens/Top';
-import Test from './screens/Test';
+import Roster from './screens/Roster';
 
 import {connect} from 'react-redux';
 import {refreshJwtToken} from './actions/auth';
@@ -106,17 +106,17 @@ class AppNavigator extends React.Component {
             />
             <Tab.Screen
               name="WorkTable"
-              component={Test}
+              component={Roster}
               options={{title: '勤務表'}}
             />
             <Tab.Screen
               name="WorkSummary"
-              component={Test}
+              component={Roster}
               options={{title: '業務集計'}}
             />
             <Tab.Screen
               name="Setting"
-              component={Test}
+              component={Roster}
               options={{title: '設定'}}
             />
           </Tab.Navigator>
