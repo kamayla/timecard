@@ -14,11 +14,9 @@ const AuthenPageWrapper = (WrapperedComponent) => {
       componentDidMount() {
         const {navigation} = this.props;
         this.unsubscribe = navigation.addListener('focus', () => {
-          console.log(this.props.jwt);
           getCurrentUser(this.props.jwt)
             .then((res) => {
               this.props.getMyAttendances(this.props.jwt);
-              console.log(res.data);
             })
             .catch((e) => {
               e.response.status === 401 && this.props.logout();

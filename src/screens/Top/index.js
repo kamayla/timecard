@@ -25,13 +25,10 @@ const Top = ({jwt, attendances, getMyAttendances}) => {
       (position) => {
         goingWork(jwt, position.coords)
           .then((res) => {
-            console.log(res.data);
             getMyAttendances(jwt);
             Vibration.vibrate();
           })
-          .catch((e) => {
-            console.log(e.response.data);
-          });
+          .catch((e) => {});
       },
       (err) => {
         console.log(err);
